@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
     name: 'SignUp',
@@ -51,9 +51,10 @@ export default {
         ...mapActions({
             'SignUpAction': 'users/SIGNUP_USER'
         }),
-        SignUpUser(){
+        signUpUser(){
+            
             this.SignUpAction({
-                email: this.eamil,
+                email: this.email,
                 username: this.username,
                 password: this.password,
                 password2: this.passwordConfirmation
@@ -73,5 +74,7 @@ export default {
 </script>
 
 <style scoped>
-
+    input{
+        display: block;
+    }
 </style>

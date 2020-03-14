@@ -1,11 +1,13 @@
-import axios from 'axios'
+import axios from 'axios';
+import errorMesage from '../../utils/index'
 
 export default {
     namespaced: true,
     state: {
         user: {},
         loading: false,
-        error: ''
+        error: '',
+        token: ''
     },
     mutations: {
         SET_USER: (state, payload) => {
@@ -32,17 +34,23 @@ export default {
     actions: {
         LOGIN_USER: ({commit}, payload) => {
             commit('SET_LOADING', true)
+            console.log(payload);
+            
             axios.post(`http://127.0.0.1:8000/api/v1/users/login/`, payload, {
                 header: {
                     'Content-Type': 'application/json'
                 }
             }).then(response => {
+                console.log(response.data);
+                
                 commit('SET_USER', response.data)
                 commit('SET_LOADING', false)
             })
         },
 
         SIGNUP_USER: ({commit}, payload) => {
+            console.log(payload);
+            
             commit('SET_LOADING', true)
             axios.post(`http://127.0.0.1:8000/api/v1/users/signup/`, payload, {
                 header: {
@@ -50,8 +58,11 @@ export default {
                 }
             }).then(response => {
                 commit('SET_USER', response.data)
+            }).catch(error => {
+                commit('SET_ERROR', errorMesage(error.response.data))
+            }).finally(
                 commit('SET_LOADING', false)
-            })
+            )
         }
     }
 }
