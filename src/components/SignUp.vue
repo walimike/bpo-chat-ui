@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="container">
+            <Navbar />
             <div class="row">
                 <div class="col-sm-4">
                     <div class="alert alert-danger" v-show="error">{{error}}</div>
@@ -28,10 +29,14 @@
 </template>
 
 <script>
+import Navbar from './Navbar'
 import {mapActions, mapGetters} from 'vuex'
 
 export default {
-    name: 'SignUp',
+    name: 'signUp',
+    components: {
+        Navbar
+    },
     data(){
         return {
             email: '',

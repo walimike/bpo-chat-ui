@@ -1,15 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Landing from '@/pages/Landing'
+
+import SignUp from '@/components/SignUp'
+import Login from '@/components/Login'
 
 Vue.use(Router)
-
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'Landing',
-      component: Landing
+      name: 'signup',
+      component: SignUp
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     }
   ]
 })

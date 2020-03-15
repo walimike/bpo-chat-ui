@@ -1,5 +1,7 @@
 import axios from 'axios';
+
 import errorMesage from '../../utils/index'
+import {SIGNUP_ENDPOINT, LOGIN_ENDPOINT} from '../../utils/urls'
 
 export default {
     namespaced: true,
@@ -36,29 +38,31 @@ export default {
             commit('SET_LOADING', true)
             console.log(payload);
             
-            axios.post(`http://127.0.0.1:8000/api/v1/users/login/`, payload, {
-                header: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(response => {
-                console.log(response.data);
-                
-                commit('SET_USER', response.data)
-                commit('SET_LOADING', false)
-            })
-        },
-
-        SIGNUP_USER: ({commit}, payload) => {
-            console.log(payload);
-            
-            commit('SET_LOADING', true)
-            axios.post(`http://127.0.0.1:8000/api/v1/users/signup/`, payload, {
+            axios.post(LOGIN_ENDPOINT, payload, {
                 header: {
                     'Content-Type': 'application/json'
                 }
             }).then(response => {
                 commit('SET_USER', response.data)
             }).catch(error => {
+                
+                commit('SET_ERROR', errorMesage(error.response.data))
+            }).finally(
+                commit('SET_LOADING', false)
+            )
+        },
+
+        SIGNUP_USER: ({commit}, payload) => {
+            commit('SET_LOADING', true)
+            axios.post(SIGNUP_ENDPOINT, payload, {
+                header: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                
+                commit('SET_USER', response.data)
+            }).catch(error => {
+                
                 commit('SET_ERROR', errorMesage(error.response.data))
             }).finally(
                 commit('SET_LOADING', false)
