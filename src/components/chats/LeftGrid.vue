@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <h2>Registered users</h2>
+  <div >
     <div v-bind:key="user.username" v-for="user in users">
       <div class="card ">
         <ul class="list-group list-group-flush ">
@@ -26,4 +25,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>

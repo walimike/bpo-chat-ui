@@ -43,7 +43,7 @@ export default {
         GET_ERROR: state => {
             return state.error
         },
-        GET_TOKEN: state => {
+        GET_TOKEN: () => {
             return localStorage.getItem('authToken')
         }
     },
