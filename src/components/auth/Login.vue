@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar />
+    <Navbar v-bind:token="token"/>
     <div class="row">
       <div class="col-sm-4">
         <div class="alert alert-danger" v-show="error">{{error}}</div>

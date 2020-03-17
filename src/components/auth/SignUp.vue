@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar />
+    <Navbar v-bind:token="token"/>
     <div class="row">
       <div class="col-sm-4">
         <div class="alert alert-danger" v-show="error">{{error}}</div>
@@ -62,7 +62,8 @@ export default {
     ...mapGetters({
       user: "users/GET_USER",
       loading: "users/GET_LOADING",
-      error: "users/GET_ERROR"
+      error: "users/GET_ERROR",
+      token: "users/GET_TOKEN"
     })
   },
   methods: {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar />
+    <Navbar v-bind:token="token"/>
     <div class="row justify-content-center h-100">
       <div class="col">
           <LeftGrid v-bind:users="users" />
