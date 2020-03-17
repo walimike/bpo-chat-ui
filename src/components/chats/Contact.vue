@@ -23,7 +23,7 @@ export default {
     methods:{
         ...mapActions({ getUserChat: "chats/RETRIEVE_USER_CHAT" }),
         openchat(){
-            this.getUserChat(this.user.username)
+            this.getUserChat({"username":this.user.username})
         }
     }
 }
