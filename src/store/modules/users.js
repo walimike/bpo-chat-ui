@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import errorMesage from '../../utils/index'
+import {errorMesage, getHeaders} from '../../utils/index'
 import {SIGNUP_ENDPOINT, LOGIN_ENDPOINT} from '../../utils/urls'
 
 export default {
@@ -14,6 +14,9 @@ export default {
     mutations: {
         SET_USER: (state, payload) => {
             state.user = payload
+        },
+        SET_TOKEN: (state, payload) => {
+            state.token = payload
         },
         SET_LOADING: (state, payload) => {
             state.loading = payload
@@ -31,38 +34,32 @@ export default {
         },
         GET_ERROR: state => {
             return state.error
+        },
+        GET_TOKEN: state => {
+            return localStorage.getItem('authToken')
         }
     },
     actions: {
         LOGIN_USER: ({commit}, payload) => {
             commit('SET_LOADING', true)
-            console.log(payload);
-            
             axios.post(LOGIN_ENDPOINT, payload, {
-                header: {
-                    'Content-Type': 'application/json'
-                }
+                header: getHeaders
             }).then(response => {
                 commit('SET_USER', response.data)
+                localStorage.setItem('authToken', response.data.access)
             }).catch(error => {
-                
                 commit('SET_ERROR', errorMesage(error.response.data))
-            }).finally(
-                commit('SET_LOADING', false)
-            )
+            })
         },
 
         SIGNUP_USER: ({commit}, payload) => {
             commit('SET_LOADING', true)
             axios.post(SIGNUP_ENDPOINT, payload, {
-                header: {
-                    'Content-Type': 'application/json'
-                }
+                header: getHeaders
             }).then(response => {
-                
                 commit('SET_USER', response.data)
-            }).catch(error => {
-                
+                localStorage.setItem('authToken', response.data.access)
+            }).catch(error => {  
                 commit('SET_ERROR', errorMesage(error.response.data))
             }).finally(
                 commit('SET_LOADING', false)
