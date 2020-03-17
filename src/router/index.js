@@ -6,7 +6,7 @@ import Login from '@/components/auth/Login'
 import Home from '@/components/chats/Home'
 
 Vue.use(Router)
-export default new Router({
+const router =  new Router({
   mode: 'history',
   routes: [
     {
@@ -26,3 +26,13 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (localStorage.getItem('authToken') !== null || to.path === '/' || to.path === '/login') {
+    next()
+  } else {
+    next('/')
+  }
+})
+
+export default router
