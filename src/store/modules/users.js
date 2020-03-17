@@ -51,7 +51,7 @@ export default {
         LOGIN_USER: ({commit}, payload) => {
             commit('SET_LOADING', true)
             axios.post(LOGIN_ENDPOINT, payload, {
-                header: getHeaders
+                headers: getHeaders()
             }).then(response => {
                 commit('SET_USER', response.data)
                 localStorage.setItem('authToken', response.data.access)
@@ -63,7 +63,7 @@ export default {
         SIGNUP_USER: ({commit}, payload) => {
             commit('SET_LOADING', true)
             axios.post(SIGNUP_ENDPOINT, payload, {
-                header: getHeaders
+                headers: getHeaders()
             }).then(response => {
                 commit('SET_USER', response.data)
                 localStorage.setItem('authToken', response.data.access)
@@ -77,7 +77,7 @@ export default {
         RETRIEVE_USERS: ({commit}) =>{
             commit('SET_LOADING', true)
             axios.get(SIGNUP_ENDPOINT, {
-                header: getHeaders
+                headers: getHeaders()
             }).then(response =>{
                 commit('SET_USERS', response.data)
             }).finally(
