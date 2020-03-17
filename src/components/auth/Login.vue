@@ -49,8 +49,6 @@ export default {
   methods: {
     ...mapActions({ loginUserAction: "users/LOGIN_USER" }),
     loginUser() {
-      console.log("issworking");
-
       this.loginUserAction({ email: this.email, password: this.password });
     }
   },

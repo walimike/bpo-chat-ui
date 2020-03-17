@@ -9,7 +9,8 @@ export default {
         user: {},
         loading: false,
         error: '',
-        token: ''
+        token: '',
+        users: {},
     },
     mutations: {
         SET_USER: (state, payload) => {
@@ -23,11 +24,18 @@ export default {
         },
         SET_ERROR: (state, payload) => {
             state.error = payload
+        },
+
+        SET_USERS: (state, payload) => {
+            state.users = payload
         }
     },
     getters: {
         GET_USER: state => {
             return state.user
+        },
+        GET_USERS: state => {
+            return state.users
         },
         GET_LOADING: state => {
             return state.loading
@@ -63,6 +71,17 @@ export default {
                 commit('SET_ERROR', errorMesage(error.response.data))
             }).finally(
                 commit('SET_LOADING', false)
+            )
+        },
+
+        RETRIEVE_USERS: ({commit}) =>{
+            commit('SET_LOADING', true)
+            axios.get(SIGNUP_ENDPOINT, {
+                header: getHeaders
+            }).then(response =>{
+                commit('SET_USERS', response.data)
+            }).finally(
+
             )
         }
     }
