@@ -1,14 +1,31 @@
 <template>
-    <div>
-        <img class="rounded-circle" :src="`http://placehold.it/40/007bff/fff&text=${user.username[0].toUpperCase()}`" />
-        <!-- <p>{{user.username}}</p> -->
+    <div class="row">
+        <img class="rounded-circle m-2" :src="`http://placehold.it/40/007bff/fff&text=${user.username[0].toUpperCase()}`" 
+        @mouseover="hover = true"
+        @mouseleave="hover = false"
+        v-on:click="openchat"/>
+        <p class="text-white ml-3">{{user.username}}</p>
+        <p v-if="hover" class="text-white ml-3">{{user.email}}</p>
     </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
+
 export default {
     name: 'contact',
-    props: ["user"]
+    props: ["user"],
+    data(){
+        return{
+            hover: false,
+        }
+    },
+    methods:{
+        ...mapActions({ getUserChat: "chats/RETRIEVE_USER_CHAT" }),
+        openchat(){
+            this.getUserChat(this.user.username)
+        }
+    }
 }
 </script>
 
