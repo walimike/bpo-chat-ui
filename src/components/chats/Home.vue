@@ -3,13 +3,10 @@
     <Navbar v-bind:token="token" />
     <div class="row">
       <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3">
-        <LeftGrid v-bind:users="users" />
+        <LeftGrid />
       </div>
       <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-9">
-        <ChartWindow
-          v-bind:chartInstance="chartInstance"
-          v-on:update:chartInstance="chartInstance"
-        />
+        <ChartWindow />
       </div>
     </div>
   </div>
@@ -37,6 +34,7 @@ export default {
   },
   mounted() {
     this.fetchUsers();
+    
   },
   computed: {
     ...mapGetters({
@@ -44,7 +42,7 @@ export default {
       users: "users/GET_USERS",
       chartInstance: "chats/GET_CHAT_INSTANCE"
     })
-  }
+  },
 };
 </script>
 

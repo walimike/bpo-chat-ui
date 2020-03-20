@@ -3,13 +3,20 @@
     <div class="selected-user">
       <span>
         To:
-        <span class="name">Name here</span>
+        <span class="name">{{chatMate.username}}</span>
       </span>
     </div>
     <div class="chat-container">
+      <p>{{url}}</p>
       <Message />
       <div class="form-group mt-3 mb-0 message-box">
-        <textarea class="form-control" rows="3" placeholder="Type your message here..."></textarea>
+      <span><textarea 
+        type="text"
+        class="form-control" rows="3" placeholder="Type your message here..."
+        name="message"
+        v-model="message"
+        ></textarea>
+        <button type="button" class="btn btn-primary" @click="sendMessage">Send</button></span>
       </div>
     </div>
   </div>
@@ -24,16 +31,35 @@ export default {
   components: {
     Message
   },
-  props: ["chartInstance"],
+  data() {
+      return{
+        message:'',
+        url: '',
+        chatMate:''
+      }
+  },
   computed: {
     ...mapGetters({
-      getChatInstance: "chats/GET_CHAT_INSTANCE"
+      getChatInstance: "chats/GET_CHAT_INSTANCE",
+      getChatMate: "chats/GET_CHAT_MATE"
     })
   },
   methods: {
-    get() {
-      return this.getChatInstance;
+    ...mapActions({ sendMessageAction: "chats/SEND_CHART_MESSAGE" }),
+    sendMessage(){
+      this.sendMessageAction({
+        message: this.message,
+        chatUri: this.url
+        })
     }
+  },
+  watch: {
+    getChatInstance(newValue, oldValue){
+      this.url = newValue
+    },
+    getChatMate(newValue, oldValue){
+      this.chatMate = newValue
+    },
   }
 };
 </script>

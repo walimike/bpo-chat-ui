@@ -1,10 +1,10 @@
 <template>
   <div >
-    <div v-bind:key="user.username" v-for="user in users">
+    <div v-bind:key="user.username" v-for="user in userlist">
       <div class="card ">
         <ul class="list-group list-group-flush ">
           <li class="list-group-item bg-dark">
-            <Contact v-bind:user="user" />
+            <Contact :user="user" />
           </li>
         </ul>
       </div>
@@ -14,13 +14,16 @@
 
 <script>
 import Contact from "./Contact";
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: "LeftGrid",
   components: {
     Contact
   },
-  props: ["users"]
+  computed: {
+    ...mapGetters({userlist: 'users/GET_USERS'})
+  }
 };
 </script>
 

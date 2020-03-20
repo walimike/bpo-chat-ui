@@ -63,7 +63,7 @@ export default {
         SIGNUP_USER: ({commit}, payload) => {
             commit('SET_LOADING', true)
             axios.post(SIGNUP_ENDPOINT, payload, {
-                headers: getHeaders()
+            
             }).then(response => {
                 commit('SET_USER', response.data)
                 localStorage.setItem('authToken', response.data.access)

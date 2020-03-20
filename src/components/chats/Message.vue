@@ -1,26 +1,42 @@
 <template>
   <div>
+  <div v-bind:key="message.message" v-for="message in messageThread">
     <ul class="chat-box chatContainerScroll">
       <li class="chat-left">
         <div class="chat-avatar">
-          <img class="rounded-circle" :src="`http://placehold.it/40/007bff/fff&text=A`" />
-          <div class="chat-name">Michael</div>
+          <img class="rounded-circle" :src="`http://placehold.it/40/007bff/fff&text=${message.user.username[0].toUpperCase()}`" />
+          <div class="chat-name">{{message.user.username}}</div>
         </div>
         <div class="chat-text">
-          Hello, I'm walimike.
-          <br />How can I help you today?
-        </div>
-        <div class="chat-hour">
-          08:55
-          <span class="fa fa-check-circle"></span>
+          {{message.message}}
         </div>
       </li>
     </ul>
   </div>
+  </div>
 </template>
 
 <script>
-export default {};
+import { mapGetters } from 'vuex';
+export default {
+  name: "message",
+  data() {
+    return{
+      messageThread:'',
+    }
+  },
+  computed:{
+    ...mapGetters({
+      getChatMessages: "chats/GET_CHAT_MESSAGES",
+      fetchMessageThread: "chats/FETCH_CHART_MESSAGE"
+    })
+  },
+  watch: {
+    getChatMessages(newValue, oldValue){
+      this.messageThread = newValue
+    }
+  }
+};
 </script>
 
 <style scoped>
